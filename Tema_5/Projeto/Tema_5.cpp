@@ -9,8 +9,73 @@
 char nome_arquivo[50], aux[MAX];								// proibido alterar esta linha
 int opcao, tamanho, i, j, n, m, digrafo, matriz_adj[MAX][MAX];  // proibido alterar esta linha
 // Declare variáveis globais a partir daqui.
+typedef struct no_fila{
+    int valor;
+    struct no_fila *prox;
+} no_fila;
 
+typedef struct no_hash {
+    int valor;
+    struct no_hash *prox;
+} no_hash;
 
+typedef struct fila{
+    struct no_fila *inicio;
+    struct no_fila *fim;
+} fila;
+
+typedef struct tabela_hash{
+    no_hash *tabela[10];
+} tabela_hash;
+
+void enqueue(fila *fi, int valor){
+    no_fila *novo = (no_fila *) malloc(sizeof(no_fila));
+    
+    if (novo == NULL){
+        printf("\nerro de alocacao\n");
+        return;
+    }
+    
+    novo->prox = NULL;
+    novo->valor = valor;
+    
+    if (fi->inicio == NULL){
+        fi->inicio = novo;
+        fi->fim = novo;
+        return;
+    } 
+    
+    fi->fim->prox = novo;
+    fi->fim = novo;
+    return;
+}
+
+int dequeue(fila *fi){
+    if (fi == NULL){
+        printf("\nerro: fila não encontrada\n");
+        return 0;
+    }
+    
+    if(fi->inicio == NULL){
+        printf("\nfila vazia\n");
+        return 0;
+    }
+    
+    int valor = fi->inicio->valor;
+    
+    no_fila *aux = fi->inicio->prox;
+    
+    free(fi->inicio);
+    
+    fi->inicio = aux;
+    
+    if(fi->inicio == NULL){
+        fi->fim = NULL;
+    }
+    
+    return valor;
+    
+}
 
 void executafuncao (){   										// É dentro desta função que o aluno deverá escrever seu código
 int x = 0;

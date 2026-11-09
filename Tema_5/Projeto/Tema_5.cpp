@@ -25,7 +25,7 @@ typedef struct fila{
 } fila;
 
 typedef struct tabela_hash{
-    no_hash *tabela[10];
+    no_hash *vetor[10];
 } tabela_hash;
 
 void enqueue(fila *fi, int valor){
@@ -75,6 +75,52 @@ int dequeue(fila *fi){
     
     return valor;
     
+}
+
+void inicializar_hash(tabela_hash *tabela){
+	if(tabela == NULL){
+		return;
+	} 
+	
+	int i = 0;
+	while(i < 10){
+		tabela->vetor[i] = NULL;
+		i++;
+	} 
+	return;
+}
+
+void inserir_hash(tabela_hash *tabela, int v){
+	int indice = v % 10;
+
+	no_hash *novo = (no_hash *) malloc(sizeof(no_hash));
+	
+	if(novo == NULL){
+		printf("\n erro: novo nó não alocado");
+		return;
+	}
+
+	novo->valor = v;
+
+	novo->prox = tabela->vetor[indice];
+	tabela->vetor[indice] = novo;
+	
+}
+
+int buscar_hash(tabela_hash *tabela, int v){
+	int indice = v % 10;
+
+	no_hash *aux = tabela->vetor[indice];
+
+	while(aux != NULL && aux->valor != v){
+		aux = aux->prox;
+	}
+
+	if(aux == NULL){
+		return 0;
+	}
+
+	return 1;
 }
 
 void executafuncao (){   										// É dentro desta função que o aluno deverá escrever seu código

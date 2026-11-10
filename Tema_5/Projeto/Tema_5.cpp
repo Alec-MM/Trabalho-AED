@@ -28,6 +28,15 @@ typedef struct tabela_hash{
     no_hash *vetor[10];
 } tabela_hash;
 
+fila* inicializar_fila(){
+	fila *fi = (fila *) malloc(sizeof(fila));
+	if(fi != NULL){
+		fi->inicio = NULL;
+		fi->fim = NULL;
+	}
+	return fi;
+}
+
 void enqueue(fila *fi, int valor){
     no_fila *novo = (no_fila *) malloc(sizeof(no_fila));
     
@@ -77,9 +86,11 @@ int dequeue(fila *fi){
     
 }
 
-void inicializar_hash(tabela_hash *tabela){
+tabela_hash* inicializar_hash(){
+	tabela_hash *tabela = (tabela_hash *) malloc(sizeof(tabela_hash));
+	
 	if(tabela == NULL){
-		return;
+		return tabela;
 	} 
 	
 	int i = 0;
@@ -87,7 +98,7 @@ void inicializar_hash(tabela_hash *tabela){
 		tabela->vetor[i] = NULL;
 		i++;
 	} 
-	return;
+	return tabela;
 }
 
 void inserir_hash(tabela_hash *tabela, int v){
@@ -124,9 +135,37 @@ int buscar_hash(tabela_hash *tabela, int v){
 }
 
 void executafuncao (){   										// É dentro desta função que o aluno deverá escrever seu código
-int x = 0;
-if (!x) {
-printf ("deu certo");
+	fila *fi = inicializar_fila();
+    tabela_hash *th = inicializar_hash();
+
+    if (fi == NULL || th == NULL) {
+        printf("\nErro de alocacao nas estruturas de dados\n");
+        return;
+    }
+
+    inserir_hash(th, 1);
+    enqueue(fi, 1);
+
+    printf("\nordem de visitacao:\n ");
+
+    while (fi->inicio != NULL) {
+        int u = dequeue(fi);
+        printf("%d ", u);
+
+        for (int v = 1; v <= n; v++) {
+            if (matriz_adj[u][v] != 0 && !buscar_hash(th, v)) {
+                inserir_hash(th, v);
+                enqueue(fi, v);
+            }
+        }
+    }
+    printf("\n\n");
+
+    free(fi);
+    free(th);
+}
+
+	
 }
 
 

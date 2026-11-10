@@ -1,6 +1,5 @@
-# binarios e arquivos de compilacao
-build/
-*.exe
+# arquivos intermediarios de compilacao
+# (os .exe e a pasta build/ vao para o git)
 *.o
 *.obj
 *.out

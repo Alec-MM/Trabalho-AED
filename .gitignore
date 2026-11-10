@@ -1,0 +1,11 @@
+# binarios e arquivos de compilacao
+build/
+*.exe
+*.o
+*.obj
+*.out
+
+# exemplos de referencia e copias (nao entram no repositorio):
+# na pasta Projeto, so o Tema_5.cpp principal vai para o git
+Tema_5/Projeto/*
+!Tema_5/Projeto/Tema_5.cpp

@@ -121,6 +121,7 @@ printf ("deu certo\n");
                 } else {
                         printf(" valor a retirar: ");
                 }  
+                
                 while (scanf("%d", &valor) != 1) { // Depende da entrada
                     while ((c = getchar()) != '\n' && c != EOF) { } // Depende do tamanho da entrada inválida
                     printf(" valor invalido, digite um numero inteiro: ");
